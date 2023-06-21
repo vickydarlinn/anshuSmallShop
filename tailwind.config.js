@@ -13,6 +13,8 @@ module.exports = {
       fontFamily: {
         marcellus: ["Marcellus", "serif"],
         openSans: ["Open Sans", "sans-serif"],
+        courier: ["Courier New", "Courier", "monospace"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },

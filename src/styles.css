@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");
+
+@layer components {
+  body {
+    @apply bg-pink-800 text-white font-inter;
+  }
+}
