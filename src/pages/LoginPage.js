@@ -25,7 +25,7 @@ const LoginPage = () => {
   }
   return (
     <div className="h-[80vh] flex flex-col justify-center items-center">
-      {isUserLoggedIn && <div>Account created successfully</div>}
+      {isUserLoggedIn && <div>Account log-in successfully</div>}
       {errorMessage && <div>{errorMessage}</div>}
       <div className=" w-full xsm:w-[375px] p-5 rounded-xl bg-white text-pink-600">
         <h1 className="text-center font-marcellus font-bold text-3xl">Login</h1>

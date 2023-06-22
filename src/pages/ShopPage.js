@@ -13,10 +13,11 @@ const ShopPage = () => {
   useEffect(() => {
     dispatch(fetchStoreProducts());
   }, [dispatch]);
-  console.log(storeProducts);
+
   if (isLoading) {
     return <div>Loading</div>;
   }
+
   if (error) {
     return <div>Something wrong happened...</div>;
   }

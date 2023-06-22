@@ -15,3 +15,6 @@ export { store };
 export * from "./thunks/fetchStoreProducts";
 export * from "./thunks/createNewUser";
 export * from "./thunks/loginExistingUser";
+export * from "./thunks/addToCart";
+export * from "./thunks/addToWishlist";
+export * from "./thunks/removeFromCart";
