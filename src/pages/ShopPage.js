@@ -24,7 +24,7 @@ const ShopPage = () => {
   return (
     <div className="flex flex-wrap gap-x-10 gap-y-20 justify-center ">
       {storeProducts.map((product) => (
-        <ProductItem product={product} />
+        <ProductItem product={product} key={product.id} />
       ))}
     </div>
   );
