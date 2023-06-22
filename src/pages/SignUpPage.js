@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createNewUser } from "../store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
+  const { isUserLoggedIn, creatingAccountError } = useSelector(
+    (state) => state.user
+  );
+  const errorMessage = creatingAccountError?.message;
   const [userDetails, setUsersDetails] = useState({
     name: "",
     email: "",
@@ -22,11 +26,22 @@ const SignUpPage = () => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(userDetails);
-    dispatch(createNewUser(userDetails));
+    dispatch(createNewUser(userDetails))
+      .unwrap()
+      .then(() => {
+        setUsersDetails(() => ({
+          name: "",
+          email: "",
+          password: "",
+        }));
+      });
   }
+  console.log(isUserLoggedIn);
   return (
     <div className="  h-[80vh]  flex  flex-col justify-center items-center ">
-      {/* <div> your error-{message && message}</div> */}
+      {isUserLoggedIn && <div>Account created successfully</div>}
+      {errorMessage && <div>{errorMessage}</div>}
+
       <div className="  bg-white text-pink-600 w-full xsm:w-[375px] p-5 rounded-xl  ">
         <h1 className="text-center font-marcellus font-bold text-3xl">
           Sign Up

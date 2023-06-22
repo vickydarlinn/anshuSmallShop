@@ -3,6 +3,8 @@ import { auth } from "../../firebase/firebase.config";
 import { db } from "../../firebase/firebase.config";
 import { doc, setDoc } from "firebase/firestore";
 
+// this thunk will create a new user and also create his credentials in the database.
+
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const createNewUser = createAsyncThunk(
@@ -28,23 +30,3 @@ const createNewUser = createAsyncThunk(
   }
 );
 export { createNewUser };
-// try {
-//   const { user } = await createUserWithEmailAndPassword(
-//     auth,
-//     email,
-//     password
-//   );
-//   if (user) {
-//     await setDoc(doc(db, "users", user.uid), {
-//       name: name,
-//       cart: [],
-//       wishlist: [],
-//     });
-//   }
-//   return {
-//     userId: user.uid,
-//     name: name,
-//   };
-// } catch (err) {
-//   return err;
-// }

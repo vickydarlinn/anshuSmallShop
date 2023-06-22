@@ -14,3 +14,4 @@ export { store };
 // when I will import thunk, they will be imported from the store.
 export * from "./thunks/fetchStoreProducts";
 export * from "./thunks/createNewUser";
+export * from "./thunks/loginExistingUser";
