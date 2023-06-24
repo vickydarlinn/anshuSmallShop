@@ -18,3 +18,5 @@ export * from "./thunks/loginExistingUser";
 export * from "./thunks/addToCart";
 export * from "./thunks/addToWishlist";
 export * from "./thunks/removeFromCart";
+export * from "./thunks/increaseQty";
+export * from "./thunks/decreaseQty";

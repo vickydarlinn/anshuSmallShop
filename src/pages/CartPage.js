@@ -1,7 +1,7 @@
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../store";
+import { removeFromCart, increaseQty, decreaseQty } from "../store";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -18,13 +18,22 @@ const CartPage = () => {
       alert("please login 1st");
     }
   }
+  function handleIncrease(product) {
+    // console.log(updatedProduct);
+    console.log("clicked");
+    dispatch(increaseQty({ userId, userCart, product }));
+  }
+  function handleDecrease(product) {
+    console.log("clicked");
+    dispatch(decreaseQty({ userId, userCart, product }));
+  }
 
   return (
     <div className="flex justify-center max-w-7xl  mx-auto ">
       <div className="w-1/2  ">
         <h3 className="font-marcellus font-bold text-3xl mb-3">Cart</h3>
         <div className="flex flex-col gap-3 lg:max-h-[600px]  overflow-auto ">
-          {userCart.map((userCartProduct) => (
+          {userCart?.map((userCartProduct) => (
             <div
               key={userCartProduct.id}
               className="max-w-xl flex gap-5 p-5 pt-10 border border-white rounded-3xl relative"
@@ -48,13 +57,19 @@ const CartPage = () => {
                 <div className="flex justify-between items-center">
                   <span>${userCartProduct.price}</span>
                   <div className="flex items-center gap-[2px]">
-                    <button className="px-3 py-1  text-white border border-gray-300  font-bold">
+                    <button
+                      className="px-3 py-1  text-white border border-gray-300  font-bold"
+                      onClick={() => handleDecrease(userCartProduct)}
+                    >
                       -
                     </button>
                     <span className="px-3 py-1  text-white border border-gray-300  font-bold">
-                      1
+                      {userCartProduct.quantity}
                     </span>
-                    <button className="px-3 py-1  text-white border border-gray-300  font-bold">
+                    <button
+                      className="px-3 py-1  text-white border border-gray-300  font-bold"
+                      onClick={() => handleIncrease(userCartProduct)}
+                    >
                       +
                     </button>
                   </div>

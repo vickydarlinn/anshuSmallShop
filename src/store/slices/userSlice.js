@@ -4,6 +4,8 @@ import { loginExistingUser } from "../thunks/loginExistingUser";
 import { addToCart } from "../thunks/addToCart";
 import { addToWishlist } from "../thunks/addToWishlist";
 import { removeFromCart } from "../thunks/removeFromCart";
+import { increaseQty } from "../thunks/increaseQty";
+import { decreaseQty } from "../thunks/decreaseQty";
 
 const userSlice = createSlice({
   name: "userDetails",
@@ -41,6 +43,9 @@ const userSlice = createSlice({
       .addCase(loginExistingUser.fulfilled, (state, action) => {
         state.isUserLoggedIn = true;
         state.userId = action.payload.userId;
+        state.userName = action.payload.name;
+        state.userCart = action.payload.cart;
+        state.userWishlist = action.payload.wishlist;
       })
       .addCase(loginExistingUser.rejected, (state, action) => {
         state.isUserLoggedIn = false;
@@ -63,6 +68,21 @@ const userSlice = createSlice({
       .addCase(addToWishlist.fulfilled, (state, action) => {
         state.userWishlist.push(action.payload);
         //
+      })
+      // increase the cart quantity.
+      .addCase(increaseQty.pending, (state, action) => {
+        console.log("hi you are in slice in pending");
+      })
+      .addCase(increaseQty.fulfilled, (state, action) => {
+        state.userCart = action.payload;
+      })
+      .addCase(increaseQty.rejected, (state, action) => {
+        console.log("hi you are have an err");
+        console.log(action.error);
+      })
+      // decrease the cart quantity.
+      .addCase(decreaseQty.fulfilled, (state, action) => {
+        state.userCart = action.payload;
       });
   },
 });

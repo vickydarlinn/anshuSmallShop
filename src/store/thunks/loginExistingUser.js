@@ -1,31 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "../../firebase/firebase.config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-// this thunk will fetch the products from the database.
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase.config";
+
+// this thunk will fetch the existing user from the database and their data too.
 
 const loginExistingUser = createAsyncThunk(
   "user/login",
   async function ({ email, pass }) {
-    console.log(email, pass);
     const user = await signInWithEmailAndPassword(auth, email, pass);
-    return {
-      userId: user.user.uid,
-    };
+    const userId = user.user.uid;
+    const userRef = doc(db, "users", userId);
+    const docSnapshot = await getDoc(userRef);
+    const userData = docSnapshot.data();
+    return { ...userData, userId };
+
     //
   }
 );
 
 export { loginExistingUser };
 
-// async function loginAccount(email, pass) {
-//   try {
-//     const user = await signInWithEmailAndPassword(auth, email, pass);
-//     return {
-//       message: "login successfully",
-//       userId: user.user.uid,
-//     };
-//   } catch (e) {
-//     return e;
-//   }
-// }
-// export { registerAccount, loginAccount };
+// If any errors see in the future, then check this thunk vicky.
