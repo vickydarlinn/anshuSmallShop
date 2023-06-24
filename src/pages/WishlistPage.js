@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { BsArrowUpRight } from "react-icons/bs";
 import { moveToCart } from "../store";
 import { removeFromWishlist } from "../store";
+import { Link } from "react-router-dom";
 
 const WishlistPage = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,16 @@ const WishlistPage = () => {
     dispatch(removeFromWishlist({ userId, userWishlist, product }));
   }
 
+  if (!userWishlist.length) {
+    return (
+      <div className="flex justify-center items-center">
+        Let's do some{" "}
+        <Link className="m-1 text-pink-300 underline font-bold" to="/shop">
+          Shopping
+        </Link>
+      </div>
+    );
+  }
   return (
     <div>
       <h3 className="font-marcellus font-bold text-3xl mb-3">Wishlist</h3>

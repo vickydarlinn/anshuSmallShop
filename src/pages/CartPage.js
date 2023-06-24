@@ -2,6 +2,7 @@ import React from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, increaseQty, decreaseQty } from "../store";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,16 @@ const CartPage = () => {
     console.log("clicked");
     dispatch(decreaseQty({ userId, userCart, product }));
   }
-
+  if (!userCart.length) {
+    return (
+      <div className="flex justify-center items-center">
+        Let's do some{" "}
+        <Link className="m-1 text-pink-300 underline font-bold" to="/shop">
+          Shopping
+        </Link>
+      </div>
+    );
+  }
   return (
     <div className="flex justify-center max-w-7xl  mx-auto ">
       <div className="w-1/2  ">
