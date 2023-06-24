@@ -21,3 +21,4 @@ export * from "./thunks/removeFromCart";
 export * from "./thunks/increaseQty";
 export * from "./thunks/decreaseQty";
 export * from "./thunks/moveToCart";
+export * from "./thunks/removeFromWishlist";

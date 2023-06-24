@@ -5,11 +5,17 @@ import { db } from "../../firebase/firebase.config";
 
 const moveToCart = createAsyncThunk(
   "cart/move",
-  async function ({ userId, userWishlist, product }) {
-    const cartRef = doc(db, "users", userId);
-    await updateDoc(cartRef, {
-      cart: arrayUnion(product),
-    });
+  async function ({ userId, userWishlist, userCart, product }) {
+    const isAlreadyInCart = userCart.find((item) => item.id === product.id);
+    console.log(isAlreadyInCart);
+    if (!isAlreadyInCart) {
+      console.log("you are in");
+      const cartRef = doc(db, "users", userId);
+      await updateDoc(cartRef, {
+        cart: arrayUnion(product),
+      });
+    }
+
     const updatedWishlist = userWishlist.filter(
       (wishlistProduct) => wishlistProduct.id !== product.id
     );

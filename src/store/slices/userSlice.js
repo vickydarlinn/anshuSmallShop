@@ -7,6 +7,7 @@ import { removeFromCart } from "../thunks/removeFromCart";
 import { increaseQty } from "../thunks/increaseQty";
 import { decreaseQty } from "../thunks/decreaseQty";
 import { moveToCart } from "../thunks/moveToCart";
+import { removeFromWishlist } from "../thunks/removeFromWishlist";
 
 const userSlice = createSlice({
   name: "userDetails",
@@ -64,7 +65,12 @@ const userSlice = createSlice({
           (cartProduct) => cartProduct.id !== action.payload.id
         );
       })
-
+      // remover from wishlist for logged users
+      .addCase(removeFromWishlist.fulfilled, (state, action) => {
+        state.userWishlist = state.userWishlist.filter(
+          (wishlistProduct) => wishlistProduct.id !== action.payload.id
+        );
+      })
       //   add to wishlist for logged users
       .addCase(addToWishlist.fulfilled, (state, action) => {
         state.userWishlist.push(action.payload);
@@ -87,7 +93,13 @@ const userSlice = createSlice({
       })
       // move to cart from wishlist
       .addCase(moveToCart.fulfilled, (state, action) => {
-        state.userCart.push(action.payload);
+        const isAlreadyInCart = state.userCart.find(
+          (item) => item.id === action.payload.id
+        );
+        if (!isAlreadyInCart) {
+          state.userCart.push(action.payload);
+        }
+
         state.userWishlist = state.userWishlist.filter(
           (item) => item.id !== action.payload.id
         );

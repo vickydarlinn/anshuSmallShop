@@ -3,14 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { RxCross2 } from "react-icons/rx";
 import { BsArrowUpRight } from "react-icons/bs";
 import { moveToCart } from "../store";
+import { removeFromWishlist } from "../store";
 
 const WishlistPage = () => {
   const dispatch = useDispatch();
-  const { userWishlist, userId } = useSelector((state) => state.user);
+  const { userWishlist, userId, userCart } = useSelector((state) => state.user);
+
   function handleMoveToCart(product) {
+    dispatch(moveToCart({ userId, userWishlist, userCart, product }));
+  }
+  function handleRemoveFromWishlist(product) {
     console.log("clicked");
-    console.log(userWishlist);
-    dispatch(moveToCart({ userId, userWishlist, product }));
+    dispatch(removeFromWishlist({ userId, userWishlist, product }));
   }
 
   return (
@@ -22,7 +26,10 @@ const WishlistPage = () => {
             key={item.id}
             className="max-w-xl flex gap-5 p-5 pt-10 border border-white rounded-3xl relative"
           >
-            <span className="absolute top-4 text-xl hover:scale-110 cursor-pointer right-5">
+            <span
+              className="absolute top-4 text-xl hover:scale-110 cursor-pointer right-5"
+              onClick={() => handleRemoveFromWishlist(item)}
+            >
               <RxCross2 />
             </span>
             <div className="w-1/4">
