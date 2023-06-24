@@ -20,3 +20,4 @@ export * from "./thunks/addToWishlist";
 export * from "./thunks/removeFromCart";
 export * from "./thunks/increaseQty";
 export * from "./thunks/decreaseQty";
+export * from "./thunks/moveToCart";

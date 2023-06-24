@@ -6,6 +6,7 @@ import { addToWishlist } from "../thunks/addToWishlist";
 import { removeFromCart } from "../thunks/removeFromCart";
 import { increaseQty } from "../thunks/increaseQty";
 import { decreaseQty } from "../thunks/decreaseQty";
+import { moveToCart } from "../thunks/moveToCart";
 
 const userSlice = createSlice({
   name: "userDetails",
@@ -83,6 +84,13 @@ const userSlice = createSlice({
       // decrease the cart quantity.
       .addCase(decreaseQty.fulfilled, (state, action) => {
         state.userCart = action.payload;
+      })
+      // move to cart from wishlist
+      .addCase(moveToCart.fulfilled, (state, action) => {
+        state.userCart.push(action.payload);
+        state.userWishlist = state.userWishlist.filter(
+          (item) => item.id !== action.payload.id
+        );
       });
   },
 });
