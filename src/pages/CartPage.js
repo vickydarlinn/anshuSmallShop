@@ -7,35 +7,27 @@ import { ToastContainer, toast } from "react-toastify";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { userCart, isUserLoggedIn, userId } = useSelector(
-    (state) => state.user
-  );
-
+  const { userCart, userId } = useSelector((state) => state.user);
+  const totalBill = userCart?.reduce((acc, currItem) => {
+    acc = acc + currItem.price * currItem.quantity;
+    return acc;
+  }, 0);
   function handleRemoveCart(product) {
-    console.log("removing...");
-    //
-    if (isUserLoggedIn) {
-      dispatch(removeFromCart({ userId, userCart, product }))
-        .unwrap()
-        .then(() => {
-          toast.success("Removed from Cart successfully", {
-            autoClose: 1000,
-          });
-        })
-        .catch((err) => {
-          toast.warning(err.message);
+    dispatch(removeFromCart({ userId, userCart, product }))
+      .unwrap()
+      .then(() => {
+        toast.success("Removed from Cart successfully", {
+          autoClose: 1000,
         });
-    } else {
-      alert("please login 1st");
-    }
+      })
+      .catch((err) => {
+        toast.warning(err.message);
+      });
   }
   function handleIncrease(product) {
-    console.log(product);
-
     dispatch(increaseQty({ userId, userCart, product }));
   }
   function handleDecrease(product) {
-    console.log("clicked");
     if (product.quantity > 1) {
       dispatch(decreaseQty({ userId, userCart, product }));
     } else {
@@ -116,7 +108,7 @@ const CartPage = () => {
       <div className="w-1/2   ">
         <div className=" flex flex-col max-w-xs ml-auto mt-10 mr-10 gap-5">
           <h3>Cart Total</h3>
-          <span>Total: $5000</span>
+          <span>Total: ${totalBill}</span>
           <button className="grow  text-pink-600 bg-white  p-2 cursor-pointer border border-white ">
             Proceed to Checkout
           </button>
