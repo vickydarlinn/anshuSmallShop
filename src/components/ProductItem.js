@@ -3,6 +3,8 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { addToCart, addToWishlist } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { removeFromWishlist } from "../store";
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -21,9 +23,23 @@ const ProductItem = ({ product }) => {
     console.log("clicked");
     //
     if (isUserLoggedIn) {
-      dispatch(addToCart({ userId, product }));
+      dispatch(addToCart({ userId, product }))
+        .unwrap()
+        .then(() => {
+          toast.success("Added to cart", {
+            autoClose: 1000,
+          });
+        })
+        .catch((err) => {
+          toast.warning(err.message, {
+            autoClose: 1000,
+          });
+        });
     } else {
-      alert("please login 1st");
+      toast.warning("please log into your account", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
     }
   }
 
@@ -31,18 +47,43 @@ const ProductItem = ({ product }) => {
     console.log("clicked");
     //
     if (isUserLoggedIn) {
-      dispatch(addToWishlist({ userId, product }));
+      dispatch(addToWishlist({ userId, product }))
+        .unwrap()
+        .then(() => {
+          toast.success("Added to Wishlist", {
+            autoClose: 1000,
+          });
+        })
+        .catch((err) => {
+          toast.warning(err.message, {
+            autoClose: 1000,
+          });
+        });
     } else {
-      alert("please login 1st");
+      toast.warning("please log into your account", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   }
 
   function handleRemoveWishlist(product) {
-    console.log("removed");
+    dispatch(removeFromWishlist({ userId, userWishlist, product }))
+      .unwrap()
+      .then(() => {
+        toast.success("Removed from Wishlist", {
+          autoClose: 1000,
+        });
+      })
+      .catch((err) => {
+        toast.warning(err.message, {
+          autoClose: 1000,
+        });
+      });
   }
 
   return (
     <div className="max-w-xs flex flex-col gap-2 ">
+      <ToastContainer />
       <div className="relative">
         <img src={product.image} alt={product.title} className="" />
         <span className="absolute right-2 top-2 text-pink-600 cursor-pointer text-3xl hover:scale-110">

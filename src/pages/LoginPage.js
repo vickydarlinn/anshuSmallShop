@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { loginExistingUser } from "../store";
+import { ToastContainer, toast } from "react-toastify";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const { isUserLoggedIn, loginAccountError } = useSelector(
-    (state) => state.user
-  );
-  const errorMessage = loginAccountError?.message;
+  const navigate = useNavigate();
+
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     pass: "",
@@ -21,12 +20,23 @@ const LoginPage = () => {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(loginExistingUser(userCredentials));
+    dispatch(loginExistingUser(userCredentials))
+      .unwrap()
+      .then(() => {
+        toast.success("logged in successfully.", {
+          icon: false,
+        });
+        navigate("/shop");
+      })
+      .catch((err) => {
+        toast.error("Id or Password is wrong.", {
+          icon: false,
+        });
+      });
   }
   return (
     <div className="h-[80vh] flex flex-col justify-center items-center">
-      {isUserLoggedIn && <div>Account log-in successfully</div>}
-      {errorMessage && <div>{errorMessage}</div>}
+      <ToastContainer />
       <div className=" w-full xsm:w-[375px] p-5 rounded-xl bg-white text-pink-600">
         <h1 className="text-center font-marcellus font-bold text-3xl">Login</h1>
         <form

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createNewUser } from "../store";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
-  const { isUserLoggedIn, creatingAccountError } = useSelector(
-    (state) => state.user
-  );
-  const errorMessage = creatingAccountError?.message;
+  const navigate = useNavigate();
+  const { isUserLoggedIn } = useSelector((state) => state.user);
   const [userDetails, setUsersDetails] = useState({
     name: "",
     email: "",
@@ -29,18 +28,21 @@ const SignUpPage = () => {
     dispatch(createNewUser(userDetails))
       .unwrap()
       .then(() => {
-        setUsersDetails(() => ({
-          name: "",
-          email: "",
-          password: "",
-        }));
+        toast.success("account created successfully", {
+          icon: false,
+        });
+        navigate("/shop");
+      })
+      .catch((err) => {
+        toast.error(err.message, {
+          icon: false,
+        });
       });
   }
   console.log(isUserLoggedIn);
   return (
     <div className="  h-[80vh]  flex  flex-col justify-center items-center ">
-      {isUserLoggedIn && <div>Account created successfully</div>}
-      {errorMessage && <div>{errorMessage}</div>}
+      <ToastContainer />
 
       <div className="  bg-white text-pink-600 w-full xsm:w-[375px] p-5 rounded-xl  ">
         <h1 className="text-center font-marcellus font-bold text-3xl">

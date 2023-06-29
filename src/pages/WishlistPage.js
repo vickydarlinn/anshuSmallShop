@@ -5,22 +5,45 @@ import { BsArrowUpRight } from "react-icons/bs";
 import { moveToCart } from "../store";
 import { removeFromWishlist } from "../store";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const WishlistPage = () => {
   const dispatch = useDispatch();
   const { userWishlist, userId, userCart } = useSelector((state) => state.user);
 
   function handleMoveToCart(product) {
-    dispatch(moveToCart({ userId, userWishlist, userCart, product }));
+    dispatch(moveToCart({ userId, userWishlist, userCart, product }))
+      .unwrap()
+      .then(() => {
+        toast.success("Moved to Cart successfully", {
+          autoClose: 1000,
+        });
+      })
+      .catch((err) => {
+        toast.warning(err.message, {
+          autoClose: 1000,
+        });
+      });
   }
   function handleRemoveFromWishlist(product) {
-    console.log("clicked");
-    dispatch(removeFromWishlist({ userId, userWishlist, product }));
+    dispatch(removeFromWishlist({ userId, userWishlist, product }))
+      .unwrap()
+      .then(() => {
+        toast.success("Removed from wishlist successfully", {
+          autoClose: 1000,
+        });
+      })
+      .catch((err) => {
+        toast.warning(err.message, {
+          autoClose: 1000,
+        });
+      });
   }
 
   if (!userWishlist.length) {
     return (
       <div className="flex justify-center items-center">
+        <ToastContainer />
         Let's do some{" "}
         <Link className="m-1 text-pink-300 underline font-bold" to="/shop">
           Shopping
@@ -30,6 +53,8 @@ const WishlistPage = () => {
   }
   return (
     <div>
+      <ToastContainer />
+
       <h3 className="font-marcellus font-bold text-3xl mb-3">Wishlist</h3>
       <div className="flex flex-wrap justify-center gap-x-5 gap-y-10 ">
         {userWishlist?.map((item) => (

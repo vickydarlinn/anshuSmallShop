@@ -3,6 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, increaseQty, decreaseQty } from "../store";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -14,19 +15,41 @@ const CartPage = () => {
     console.log("removing...");
     //
     if (isUserLoggedIn) {
-      dispatch(removeFromCart({ userId, userCart, product }));
+      dispatch(removeFromCart({ userId, userCart, product }))
+        .unwrap()
+        .then(() => {
+          toast.success("Removed from Cart successfully", {
+            autoClose: 1000,
+          });
+        })
+        .catch((err) => {
+          toast.warning(err.message);
+        });
     } else {
       alert("please login 1st");
     }
   }
   function handleIncrease(product) {
-    // console.log(updatedProduct);
-    console.log("clicked");
+    console.log(product);
+
     dispatch(increaseQty({ userId, userCart, product }));
   }
   function handleDecrease(product) {
     console.log("clicked");
-    dispatch(decreaseQty({ userId, userCart, product }));
+    if (product.quantity > 1) {
+      dispatch(decreaseQty({ userId, userCart, product }));
+    } else {
+      dispatch(removeFromCart({ userId, userCart, product }))
+        .unwrap()
+        .then(() => {
+          toast.success("Removed from Cart successfully", {
+            autoClose: 1000,
+          });
+        })
+        .catch((err) => {
+          toast.warning(err.message);
+        });
+    }
   }
   if (!userCart.length) {
     return (
@@ -40,6 +63,7 @@ const CartPage = () => {
   }
   return (
     <div className="flex justify-center max-w-7xl  mx-auto ">
+      <ToastContainer />
       <div className="w-1/2  ">
         <h3 className="font-marcellus font-bold text-3xl mb-3">Cart</h3>
         <div className="flex flex-col gap-3 lg:max-h-[600px]  overflow-auto ">
