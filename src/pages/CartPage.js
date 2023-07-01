@@ -54,15 +54,15 @@ const CartPage = () => {
     );
   }
   return (
-    <div className="flex justify-center max-w-7xl  mx-auto ">
+    <div className="flex flex-col md:flex-row justify-center max-w-7xl  mx-auto mb-6 ">
       <ToastContainer />
-      <div className="w-1/2  ">
+      <div className="md:w-1/2  ">
         <h3 className="font-marcellus font-bold text-3xl mb-3">Cart</h3>
         <div className="flex flex-col gap-3 lg:max-h-[600px]  overflow-auto ">
           {userCart?.map((userCartProduct) => (
             <div
               key={userCartProduct.id}
-              className="max-w-xl flex gap-5 p-5 pt-10 border border-white rounded-3xl relative"
+              className="max-w-xl flex flex-col xsm:flex-row gap-5 p-5 pt-10 border border-white rounded-3xl relative"
             >
               <span
                 className="absolute top-4 text-xl hover:scale-110 cursor-pointer right-5"
@@ -70,7 +70,7 @@ const CartPage = () => {
               >
                 <RxCross2 />
               </span>
-              <div className="w-1/4">
+              <div className="xsm:w-1/4">
                 {" "}
                 <img
                   src={userCartProduct.image}
@@ -78,7 +78,7 @@ const CartPage = () => {
                   alt={userCartProduct.title}
                 />
               </div>
-              <div className="w-3/4 flex flex-col justify-between">
+              <div className="xsm:w-3/4 flex flex-col justify-between">
                 <h4>{userCartProduct.title}</h4>
                 <div className="flex justify-between items-center">
                   <span>${userCartProduct.price}</span>
@@ -105,7 +105,7 @@ const CartPage = () => {
           ))}
         </div>
       </div>
-      <div className="w-1/2   ">
+      <div className="md:w-1/2   ">
         <div className=" flex flex-col max-w-xs ml-auto mt-10 mr-10 gap-5">
           <h3>Cart Total</h3>
           <span>Total: ${totalBill}</span>

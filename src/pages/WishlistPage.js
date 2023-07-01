@@ -60,7 +60,7 @@ const WishlistPage = () => {
         {userWishlist?.map((item) => (
           <div
             key={item.id}
-            className="max-w-xl flex gap-5 p-5 pt-10 border border-white rounded-3xl relative"
+            className="max-w-xl flex flex-col xsm:flex-row gap-5 p-5 pt-10 border border-white rounded-3xl relative m-2 xms:m-0"
           >
             <span
               className="absolute top-4 text-xl hover:scale-110 cursor-pointer right-5"
@@ -68,7 +68,7 @@ const WishlistPage = () => {
             >
               <RxCross2 />
             </span>
-            <div className="w-1/4">
+            <div className="xsm:w-1/4 ">
               {" "}
               <img
                 src={item.image}
@@ -76,7 +76,7 @@ const WishlistPage = () => {
                 alt={item.title}
               />
             </div>
-            <div className="w-3/4 flex flex-col justify-between">
+            <div className="xsm:w-3/4 flex flex-col justify-between">
               <h4>{item.title}</h4>
               <div className="flex justify-between gap-10 items-center">
                 <span>${item.price}</span>
