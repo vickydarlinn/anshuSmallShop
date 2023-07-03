@@ -9,6 +9,8 @@ import { decreaseQty } from "../thunks/decreaseQty";
 import { moveToCart } from "../thunks/moveToCart";
 import { removeFromWishlist } from "../thunks/removeFromWishlist";
 import { editName } from "../thunks/personalInfoThunks/editName";
+import { editEmail } from "../thunks/personalInfoThunks/editEmail";
+import { editPhone } from "../thunks/personalInfoThunks/editPhone";
 
 const userSlice = createSlice({
   name: "userDetails",
@@ -19,7 +21,7 @@ const userSlice = createSlice({
       name: "",
       sex: "",
       email: "",
-      mobile: "",
+      phone: "",
     },
     userCart: [],
     userWishlist: [],
@@ -37,7 +39,8 @@ const userSlice = createSlice({
       .addCase(createNewUser.fulfilled, (state, action) => {
         state.isUserLoggedIn = true;
         state.userId = action.payload.userId;
-        state.userPersonalInfo.name = action.payload.name; //err1
+        state.userPersonalInfo.name = action.payload.name;
+        state.userPersonalInfo.email = action.payload.email;
         // Update the state based on the fulfilled action
       })
       .addCase(createNewUser.rejected, (state, action) => {
@@ -49,9 +52,12 @@ const userSlice = createSlice({
         state.isUserLoggedIn = false;
       })
       .addCase(loginExistingUser.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.isUserLoggedIn = true;
         state.userId = action.payload.userId;
-        state.userPersonalInfo.name = action.payload.name; //err2
+        state.userPersonalInfo.name = action.payload.name;
+        state.userPersonalInfo.phone = action.payload.phone;
+        state.userPersonalInfo.email = action.payload.email;
         state.userCart = action.payload.cart;
         state.userWishlist = action.payload.wishlist;
       })
@@ -112,6 +118,12 @@ const userSlice = createSlice({
       })
       .addCase(editName.fulfilled, (state, action) => {
         state.userPersonalInfo.name = action.payload;
+      })
+      .addCase(editEmail.fulfilled, (state, action) => {
+        state.userPersonalInfo.email = action.payload;
+      })
+      .addCase(editPhone.fulfilled, (state, action) => {
+        state.userPersonalInfo.phone = action.payload;
       });
   },
 });

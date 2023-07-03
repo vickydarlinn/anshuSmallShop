@@ -23,3 +23,5 @@ export * from "./thunks/decreaseQty";
 export * from "./thunks/moveToCart";
 export * from "./thunks/removeFromWishlist";
 export * from "./thunks/personalInfoThunks/editName";
+export * from "./thunks/personalInfoThunks/editEmail";
+export * from "./thunks/personalInfoThunks/editPhone";

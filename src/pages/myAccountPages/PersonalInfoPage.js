@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { editName } from "../../store";
+import { editEmail, editName, editPhone } from "../../store";
 
 const PersonalInfoPage = () => {
   const dispatch = useDispatch();
@@ -12,8 +12,8 @@ const PersonalInfoPage = () => {
   const [isEmailEditing, setIsEmailEditing] = useState(false);
   const [isPhoneEditing, setIsPhoneEditing] = useState(false);
   const [nameValue, setNameValue] = useState(userInfo.name);
-  const [emailValue, setEmailValue] = useState("");
-  const [phoneValue, setPhoneValue] = useState("");
+  const [emailValue, setEmailValue] = useState(userInfo.email);
+  const [phoneValue, setPhoneValue] = useState(userInfo.phone);
 
   function toggleEditName() {
     setIsNameEditing((prev) => !prev);
@@ -21,11 +21,11 @@ const PersonalInfoPage = () => {
   }
   function toggleEditEmail() {
     setIsEmailEditing((prev) => !prev);
-    setEmailValue("");
+    setEmailValue(userInfo.email);
   }
   function toggleEditPhone() {
     setIsPhoneEditing((prev) => !prev);
-    setPhoneValue("");
+    setPhoneValue(userInfo.phone);
   }
   function handleName(e) {
     setNameValue(e.target.value);
@@ -37,18 +37,31 @@ const PersonalInfoPage = () => {
     setPhoneValue(e.target.value);
   }
   function handleSubmitName() {
-    toast.success(`Successfully saved `);
-    toggleEditName();
-    dispatch(editName({ userId, editedName: nameValue }));
+    if (nameValue.length) {
+      toast.success(`Successfully saved `);
+      toggleEditName();
+      dispatch(editName({ userId, editedName: nameValue }));
+    } else {
+      toast.error(`Please type your name`);
+    }
   }
   function handleSubmitEmail() {
-    toast.success(`Email successfully saved `);
-    toggleEditEmail();
+    if (emailValue.length) {
+      toast.success(`Email successfully saved `);
+      toggleEditEmail();
+      dispatch(editEmail({ userId, editedEmail: emailValue }));
+    } else {
+      toast.error(`Please type your email`);
+    }
   }
   function handleSubmitPhone() {
-    toast.success(`Phone No. successfully saved `);
-    setIsPhoneEditing((prev) => !prev);
-    toggleEditPhone();
+    if (phoneValue.length === 10) {
+      toast.success(`Phone No. successfully saved `);
+      toggleEditPhone();
+      dispatch(editPhone({ userId, editedPhone: phoneValue }));
+    } else {
+      toast.error(`Please type your phone no. correctly`);
+    }
   }
   return (
     <>
@@ -84,29 +97,6 @@ const PersonalInfoPage = () => {
             >
               Save
             </button>
-          </div>
-          <h4 className="mt-2">Your Gender</h4>
-          <div className="flex gap-4">
-            <div className="flex gap-2">
-              <input
-                id="sexMale"
-                type="radio"
-                name="sex"
-                value="male"
-                disabled={isNameEditing ? "" : "disabled"}
-              />
-              <label htmlFor="sexMale">Male</label>
-            </div>
-            <div className="flex gap-2">
-              <input
-                id="sexFemale"
-                type="radio"
-                name="sex"
-                value="female"
-                disabled={isNameEditing ? "" : "disabled"}
-              />
-              <label htmlFor="sexFemale">Female</label>
-            </div>
           </div>
         </div>
         <div className="flex flex-col gap-5">

@@ -21,8 +21,7 @@ const createNewUser = createAsyncThunk(
         name: name,
         cart: [],
         wishlist: [],
-        email: "",
-        sex: "",
+        email: email,
         phone: "",
         addresses: [],
       });

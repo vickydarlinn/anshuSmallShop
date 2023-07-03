@@ -61,28 +61,28 @@ const Header = () => {
       >
         <NavLink
           to="/"
-          activeClassName="font-bold"
+          activeclassname="font-bold"
           className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
         >
           Home
         </NavLink>
         <NavLink
           to="/shop"
-          activeClassName="font-bold"
+          activeclassname="font-bold"
           className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
         >
           Shop
         </NavLink>
         <NavLink
           to="/wishlist"
-          activeClassName="font-bold"
+          activeclassname="font-bold"
           className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
         >
           Wishlist
         </NavLink>
         <NavLink
           to="/cart"
-          activeClassName="font-bold"
+          activeclassname="font-bold"
           className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
         >
           Cart
@@ -90,7 +90,7 @@ const Header = () => {
         {isUserLoggedIn ? (
           <NavLink
             to="/my-account"
-            activeClassName="font-bold"
+            activeclassname="font-bold"
             className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
           >
             My Account
@@ -98,7 +98,7 @@ const Header = () => {
         ) : (
           <NavLink
             to="/login"
-            activeClassName="font-bold"
+            activeclassname="font-bold"
             className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
           >
             Login
