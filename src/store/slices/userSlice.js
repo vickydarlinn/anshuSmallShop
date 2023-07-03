@@ -11,6 +11,8 @@ import { removeFromWishlist } from "../thunks/removeFromWishlist";
 import { editName } from "../thunks/personalInfoThunks/editName";
 import { editEmail } from "../thunks/personalInfoThunks/editEmail";
 import { editPhone } from "../thunks/personalInfoThunks/editPhone";
+import { addAddress } from "../thunks/personalInfoThunks/addAddress";
+import { removeAddress } from "../thunks/personalInfoThunks/removeAddress";
 
 const userSlice = createSlice({
   name: "userDetails",
@@ -22,6 +24,7 @@ const userSlice = createSlice({
       sex: "",
       email: "",
       phone: "",
+      addresses: [],
     },
     userCart: [],
     userWishlist: [],
@@ -58,6 +61,7 @@ const userSlice = createSlice({
         state.userPersonalInfo.name = action.payload.name;
         state.userPersonalInfo.phone = action.payload.phone;
         state.userPersonalInfo.email = action.payload.email;
+        state.userPersonalInfo.addresses = action.payload.addresses;
         state.userCart = action.payload.cart;
         state.userWishlist = action.payload.wishlist;
       })
@@ -124,6 +128,17 @@ const userSlice = createSlice({
       })
       .addCase(editPhone.fulfilled, (state, action) => {
         state.userPersonalInfo.phone = action.payload;
+      })
+      // add address to user
+      .addCase(addAddress.fulfilled, (state, action) => {
+        state.userPersonalInfo.addresses.push(action.payload);
+      })
+      // remove address from user
+      .addCase(removeAddress.fulfilled, (state, action) => {
+        state.userPersonalInfo.addresses =
+          state.userPersonalInfo.addresses.filter(
+            (address) => address.id !== action.payload.id
+          );
       });
   },
 });
