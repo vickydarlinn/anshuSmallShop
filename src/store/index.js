@@ -27,3 +27,4 @@ export * from "./thunks/personalInfoThunks/editEmail";
 export * from "./thunks/personalInfoThunks/editPhone";
 export * from "./thunks/personalInfoThunks/addAddress";
 export * from "./thunks/personalInfoThunks/removeAddress";
+export * from "./thunks/personalInfoThunks/editAddress";

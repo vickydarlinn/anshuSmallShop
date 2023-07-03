@@ -13,6 +13,7 @@ import { editEmail } from "../thunks/personalInfoThunks/editEmail";
 import { editPhone } from "../thunks/personalInfoThunks/editPhone";
 import { addAddress } from "../thunks/personalInfoThunks/addAddress";
 import { removeAddress } from "../thunks/personalInfoThunks/removeAddress";
+import { editAddress } from "../thunks/personalInfoThunks/editAddress";
 
 const userSlice = createSlice({
   name: "userDetails",
@@ -139,6 +140,9 @@ const userSlice = createSlice({
           state.userPersonalInfo.addresses.filter(
             (address) => address.id !== action.payload.id
           );
+      })
+      .addCase(editAddress.fulfilled, (state, action) => {
+        state.userPersonalInfo.addresses = action.payload;
       });
   },
 });
