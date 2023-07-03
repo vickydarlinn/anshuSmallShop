@@ -22,3 +22,4 @@ export * from "./thunks/increaseQty";
 export * from "./thunks/decreaseQty";
 export * from "./thunks/moveToCart";
 export * from "./thunks/removeFromWishlist";
+export * from "./thunks/personalInfoThunks/editName";

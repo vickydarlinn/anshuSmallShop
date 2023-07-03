@@ -8,13 +8,19 @@ import { increaseQty } from "../thunks/increaseQty";
 import { decreaseQty } from "../thunks/decreaseQty";
 import { moveToCart } from "../thunks/moveToCart";
 import { removeFromWishlist } from "../thunks/removeFromWishlist";
+import { editName } from "../thunks/personalInfoThunks/editName";
 
 const userSlice = createSlice({
   name: "userDetails",
   initialState: {
     isUserLoggedIn: false,
     userId: null,
-    userName: "",
+    userPersonalInfo: {
+      name: "",
+      sex: "",
+      email: "",
+      mobile: "",
+    },
     userCart: [],
     userWishlist: [],
     creatingAccountError: null,
@@ -31,7 +37,7 @@ const userSlice = createSlice({
       .addCase(createNewUser.fulfilled, (state, action) => {
         state.isUserLoggedIn = true;
         state.userId = action.payload.userId;
-        state.userName = action.payload.name;
+        state.userPersonalInfo.name = action.payload.name; //err1
         // Update the state based on the fulfilled action
       })
       .addCase(createNewUser.rejected, (state, action) => {
@@ -45,7 +51,7 @@ const userSlice = createSlice({
       .addCase(loginExistingUser.fulfilled, (state, action) => {
         state.isUserLoggedIn = true;
         state.userId = action.payload.userId;
-        state.userName = action.payload.name;
+        state.userPersonalInfo.name = action.payload.name; //err2
         state.userCart = action.payload.cart;
         state.userWishlist = action.payload.wishlist;
       })
@@ -103,6 +109,9 @@ const userSlice = createSlice({
         state.userWishlist = state.userWishlist.filter(
           (item) => item.id !== action.payload.id
         );
+      })
+      .addCase(editName.fulfilled, (state, action) => {
+        state.userPersonalInfo.name = action.payload;
       });
   },
 });

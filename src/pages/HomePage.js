@@ -12,7 +12,7 @@ const HomePage = () => {
   return (
     <>
       <section
-        className=" h-[90vh] mt-[-50px]  bg-no-repeat bg-cover  bg-center lg:bg-fixed text-white flex flex-col justify-center md:pl-40 pl-4"
+        className=" h-screen mt-[-50px]  bg-no-repeat bg-cover  bg-center lg:bg-fixed text-white flex flex-col justify-center md:pl-40 pl-4"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
         <span className="font-marcellus">NEW IN TOWN</span>
