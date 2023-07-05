@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const MyAccountLayout = () => {
   const { name } = useSelector((state) => state.user.userPersonalInfo);
   return (
-    <div>
+    <div className="hidden md:block">
       <header className="flex flex-col gap-3  items-start pl-2  rounded-lg text-xl  bg-white text-pink-600 fixed left-5 top-32 h-[80vh] p-2 w-60">
         <span className="mb-5 self-center font-bold">Hi, {name} </span>
         <NavLink

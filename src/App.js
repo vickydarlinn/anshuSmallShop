@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUpPage";
 import MyAccountLayout from "./components/MyAccountLayout";
 import PersonalInfoPage from "./pages/myAccountPages/PersonalInfoPage";
 import AddressPage from "./pages/myAccountPages/AddressPage";
+import ProtectiveRoute from "./components/ProtectiveRoute";
 
 const App = () => {
   return (
@@ -21,7 +22,14 @@ const App = () => {
         <Route path="wishlist" element={<WishlistPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
-        <Route path="my-account" element={<MyAccountLayout />}>
+        <Route
+          path="/my-account"
+          element={
+            <ProtectiveRoute>
+              <MyAccountLayout />
+            </ProtectiveRoute>
+          }
+        >
           <Route index element={<PersonalInfoPage />} />
           <Route path="address" element={<AddressPage />} />
         </Route>

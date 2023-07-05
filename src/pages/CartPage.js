@@ -109,7 +109,10 @@ const CartPage = () => {
         <div className=" flex flex-col max-w-xs ml-auto mt-10 mr-10 gap-5">
           <h3>Cart Total</h3>
           <span>Total: ${totalBill}</span>
-          <button className="grow  text-pink-600 bg-white  p-2 cursor-pointer border border-white ">
+          <button
+            onClick={() => alert("order placed successfully.")}
+            className="grow  text-pink-600 bg-white  p-2 cursor-pointer border border-white "
+          >
             Proceed to Checkout
           </button>
         </div>
