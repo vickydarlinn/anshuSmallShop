@@ -3,7 +3,9 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const Header = () => {
-  const { isUserLoggedIn } = useSelector((state) => state.user);
+  const { isUserLoggedIn, userCart, userWishlist } = useSelector(
+    (state) => state.user
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -73,20 +75,61 @@ const Header = () => {
         >
           Shop
         </NavLink>
-        <NavLink
-          to="/wishlist"
-          activeclassname="font-bold"
-          className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
-        >
-          Wishlist
-        </NavLink>
-        <NavLink
-          to="/cart"
-          activeclassname="font-bold"
-          className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
-        >
-          Cart
-        </NavLink>
+        {isUserLoggedIn ? (
+          <div className="relative ">
+            <NavLink
+              to="/wishlist"
+              activeclassname="font-bold"
+              className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
+            >
+              Wishlist
+            </NavLink>
+
+            {userWishlist.length ? (
+              <span className="absolute top-[-8px] right-1 text-xs text-bold border border-pink-600 h-5 w-5 bg-pink-600 text-white rounded-full flex justify-center items-center">
+                {userWishlist.length}
+              </span>
+            ) : (
+              <span className="hidden"></span>
+            )}
+          </div>
+        ) : (
+          <NavLink
+            to="/wishlist"
+            activeclassname="font-bold"
+            className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
+          >
+            Wishlist
+          </NavLink>
+        )}
+        {isUserLoggedIn ? (
+          <div className="relative ">
+            <NavLink
+              to="/cart"
+              activeclassname="font-bold"
+              className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
+            >
+              Cart
+            </NavLink>
+
+            {userCart.length ? (
+              <span className="absolute top-[-8px] right-1 text-xs text-bold border border-pink-600 h-5 w-5 bg-pink-600 text-white rounded-full flex justify-center items-center">
+                {userCart.length}
+              </span>
+            ) : (
+              <span className="hidden"></span>
+            )}
+          </div>
+        ) : (
+          <NavLink
+            to="/cart"
+            activeclassname="font-bold"
+            className="block lg:inline-block mb-2 lg:mb-0 lg:ml-0 lg:mr-4 text-pink-600 hover:text-pink-800"
+          >
+            Cart
+          </NavLink>
+        )}
+
         {isUserLoggedIn ? (
           <NavLink
             to="/my-account"
