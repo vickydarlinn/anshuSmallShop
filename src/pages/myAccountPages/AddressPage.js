@@ -92,7 +92,7 @@ const AddressPage = () => {
   };
 
   return (
-    <div className="m-10">
+    <div className="sm:m-10">
       <h3 className="mb-5 text-xl">Manage Addresses</h3>
       {isAddressAdding ? (
         <form
@@ -101,12 +101,12 @@ const AddressPage = () => {
         >
           <h4 className="mb-3">Add a new Address</h4>
           <div className="flex flex-col gap-4">
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <input
                 required
                 placeholder="name"
                 type="text"
-                className="py-2 px-2 text-black w-64"
+                className="py-2 px-2 text-black w-full lg:w-64"
                 name="name"
                 value={addressFormData.name}
                 onChange={handleInputChange}
@@ -115,18 +115,18 @@ const AddressPage = () => {
                 required
                 placeholder="phone no."
                 type="number"
-                className="py-2 px-2 text-black w-64"
+                className="py-2 px-2 text-black w-full lg:w-64"
                 name="phone"
                 value={addressFormData.phone}
                 onChange={handleInputChange}
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <input
                 required
                 placeholder="Pin code"
                 type="number"
-                className="py-2 px-2 text-black w-64"
+                className="py-2 px-2 text-black w-full lg:w-64"
                 name="pinCode"
                 value={addressFormData.pinCode}
                 onChange={handleInputChange}
@@ -134,7 +134,7 @@ const AddressPage = () => {
               <select
                 id="country-state"
                 name="state"
-                className="py-2 px-2 text-black w-64"
+                className="py-2 px-2 text-black w-full lg:w-64"
                 required
                 value={addressFormData.state}
                 onChange={handleInputChange}
@@ -181,14 +181,14 @@ const AddressPage = () => {
             </div>
             <textarea
               required
-              className="py-2 px-2 text-black w-[520px]"
+              className="py-2 px-2 text-black w-full lg:w-[520px]"
               placeholder="Address (Area and street)"
               name="address"
               value={addressFormData.address}
               onChange={handleInputChange}
             ></textarea>
             <div className="flex gap-4">
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <input
                   required
                   id="home"
@@ -213,15 +213,15 @@ const AddressPage = () => {
                 <label htmlFor="office">Office</label>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap  gap-2">
               <button
-                className={`py-2 px-10 border border-white`}
+                className={`py-2 px-10 w-full lg:w-auto border border-white`}
                 type="submit"
               >
                 Save
               </button>
               <button
-                className={`py-2 px-10 border border-white`}
+                className={`py-2 px-10 border w-full lg:w-auto border-white`}
                 onClick={toggleAddressAdding}
               >
                 Cancel

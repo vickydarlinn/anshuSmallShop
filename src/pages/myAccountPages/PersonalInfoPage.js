@@ -66,7 +66,7 @@ const PersonalInfoPage = () => {
   return (
     <>
       <ToastContainer />
-      <div className="flex flex-col gap-20">
+      <div className="flex flex-col gap-20 mt-40 p-2">
         <div className="flex flex-col gap-2">
           <div className="flex gap-10">
             <h3>Personal Information</h3>
@@ -85,7 +85,7 @@ const PersonalInfoPage = () => {
               type="email"
               placeholder={`${isNameEditing ? `name` : ""}`}
               disabled={isNameEditing ? "" : "disabled"}
-              className=" py-2 px-2 text-black w-64"
+              className=" py-2 px-2 text-black w-full sm:w-64"
               value={nameValue}
               onChange={(e) => handleName(e)}
             />
@@ -118,7 +118,7 @@ const PersonalInfoPage = () => {
               onChange={(e) => handleEmail(e)}
               type="text"
               disabled={isEmailEditing ? "" : "disabled"}
-              className="py-2 px-2 text-black w-64"
+              className="py-2 px-2 text-black w-full sm:w-64"
               placeholder={isEmailEditing ? "johndoe@email.com" : ""}
             />
             <button
@@ -149,7 +149,7 @@ const PersonalInfoPage = () => {
               type="number"
               placeholder={`${isPhoneEditing ? `9813xxxxxxx` : ""}`}
               disabled={isPhoneEditing ? "" : "disabled"}
-              className=" py-2 px-2 text-black w-64"
+              className=" py-2 px-2 text-black w-full sm:w-64"
               value={phoneValue}
               onChange={(e) => handlePhone(e)}
             />
