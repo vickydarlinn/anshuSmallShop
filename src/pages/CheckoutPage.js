@@ -24,7 +24,7 @@ const CheckoutPage = () => {
   function handlePlaceOrder() {
     if (selectedAddress) {
       toast.success(
-        `your order of price $${totalBill} has been placed at place ${selectedAddress.address}.`
+        `your order of price $${totalBill} has been placed for place ${selectedAddress.address}.`
       );
     } else {
       toast.error("please select order address");
