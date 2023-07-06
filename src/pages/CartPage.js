@@ -3,9 +3,11 @@ import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, increaseQty, decreaseQty } from "../store";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userCart, userId } = useSelector((state) => state.user);
   const totalBill = userCart?.reduce((acc, currItem) => {
@@ -110,7 +112,9 @@ const CartPage = () => {
           <h3>Cart Total</h3>
           <span>Total: ${totalBill}</span>
           <button
-            onClick={() => alert("order placed successfully.")}
+            onClick={() => {
+              navigate("/checkout");
+            }}
             className="grow  text-pink-600 bg-white  p-2 cursor-pointer border border-white "
           >
             Proceed to Checkout

@@ -56,7 +56,7 @@ const WishlistPage = () => {
       <ToastContainer />
 
       <h3 className="font-marcellus font-bold text-3xl mb-3">Wishlist</h3>
-      <div className="flex flex-wrap justify-center gap-x-5 gap-y-10 ">
+      <div className="flex flex-wrap justify-start gap-x-5 gap-y-10   mx-auto">
         {userWishlist?.map((item) => (
           <div
             key={item.id}

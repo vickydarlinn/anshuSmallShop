@@ -11,6 +11,7 @@ import MyAccountLayout from "./components/MyAccountLayout";
 import PersonalInfoPage from "./pages/myAccountPages/PersonalInfoPage";
 import AddressPage from "./pages/myAccountPages/AddressPage";
 import ProtectiveRoute from "./components/ProtectiveRoute";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const App = () => {
   return (
@@ -20,6 +21,14 @@ const App = () => {
         <Route path="shop" element={<ShopPage />} />
         <Route path="cart" element={<CartPage />} />
         <Route path="wishlist" element={<WishlistPage />} />
+        <Route
+          path="checkout"
+          element={
+            <ProtectiveRoute>
+              <CheckoutPage />
+            </ProtectiveRoute>
+          }
+        />
         <Route path="login" element={<LoginPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route
