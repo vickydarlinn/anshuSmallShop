@@ -37,7 +37,6 @@ const userSlice = createSlice({
     // creating new account for user.
     builder
       .addCase(createNewUser.pending, (state, action) => {
-        // console.log("createNewUser is pending");
         state.isUserLoggedIn = false;
       })
       .addCase(createNewUser.fulfilled, (state, action) => {
@@ -56,7 +55,6 @@ const userSlice = createSlice({
         state.isUserLoggedIn = false;
       })
       .addCase(loginExistingUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isUserLoggedIn = true;
         state.userId = action.payload.userId;
         state.userPersonalInfo.name = action.payload.name;
@@ -100,10 +98,7 @@ const userSlice = createSlice({
       .addCase(increaseQty.fulfilled, (state, action) => {
         state.userCart = action.payload;
       })
-      .addCase(increaseQty.rejected, (state, action) => {
-        console.log("hi you are have an err");
-        console.log(action.error);
-      })
+      .addCase(increaseQty.rejected, (state, action) => {})
       // decrease the cart quantity.
       .addCase(decreaseQty.fulfilled, (state, action) => {
         state.userCart = action.payload;
